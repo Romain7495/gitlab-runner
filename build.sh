@@ -10,12 +10,12 @@ export RELEASE=${K8S_VERSION}-${HELM_VERSION}
 export VERSION=${2:-$RELEASE}
 # Build image
 docker build -t ${DOCKER_REPO}:${VERSION} \
-    --build-arg K8S_VERSION=${K8S_VERSION} \
-    --build-arg HELM_VERSION=${HELM_VERSION} .
+             -t ${DOCKER_REPO}:latest \
+            --build-arg K8S_VERSION=${K8S_VERSION} \
+            --build-arg HELM_VERSION=${HELM_VERSION} .
 
 docker tag ${DOCKER_REPO}:${VERSION} ${DOCKER_REPO}:latest
 
 # Push image
 docker push ${DOCKER_REPO}:${VERSION}
 docker push ${DOCKER_REPO}:latest
-
