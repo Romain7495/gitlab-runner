@@ -1,9 +1,13 @@
-FROM alpine:3.13
+FROM python:3-alpine
 
 LABEL MAINTAINER=contact@romainlabat.fr
 
 ARG K8S_VERSION
 ARG HELM_VERSION
+ARG GCLOUD_VERSION=310.0.0
+
+ENV GCLOUD_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${GCLOUD_VERSION}-linux-x86_64.tar.gz"
+ENV CLOUD_SQL_PROXY="https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64"
 ENV HELM_FILENAME=helm-${HELM_VERSION}-linux-amd64.tar.gz
 ADD https://github.com/vmware-tanzu/carvel-ytt/releases/download/v0.31.0/ytt-linux-amd64 /usr/local/bin/ytt
 
@@ -19,8 +23,22 @@ RUN apk add --update ca-certificates \
  && curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash \
  && chmod +x /usr/local/bin/kubectl \
  && chmod +x /usr/local/bin/ytt \
- && apk del --purge deps \
  && rm /var/cache/apk/* \
+ && helm plugin install https://github.com/chartmuseum/helm-push \
+ && helm plugin install https://github.com/salesforce/helm-starter.git \
  && helm plugin install https://github.com/databus23/helm-diff --version 3.1.2
+
+#RUN \
+#  curl https://sdk.cloud.google.com > install.sh && \
+#  bash install.sh --disable-prompts
+
+#SHELL ["/bin/bash", "-c"]
+
+#RUN source /root/google-cloud-sdk/completion.bash.inc && \
+#    source /root/google-cloud-sdk/path.bash.inc && \
+#    echo "source /root/google-cloud-sdk/completion.bash.inc" >> ~/.bashrc && \
+#    echo "source /root/google-cloud-sdk/path.bash.inc" >> ~/.bashrc
+
+#ENV PATH="/root/google-cloud-sdk/bin:${PATH}"
 
 CMD ["helm"]
