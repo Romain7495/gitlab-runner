@@ -16,9 +16,11 @@ RUN apk add --update ca-certificates \
  && apk add --update openssh  \
  && apk add --update docker  \
  && apk add --update jq  \
+ && apk add --update py3-pip \
  && apk add --update openssl  \
  && apk add --update bash git perl \
  && apk add --update gettext tar gzip \
+ && pip install j2cli \
  && curl -L https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
  && curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash \
  && chmod +x /usr/local/bin/kubectl \
