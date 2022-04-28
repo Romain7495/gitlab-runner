@@ -15,19 +15,22 @@ RUN apk add --update ca-certificates \
  && apk add --update -t deps curl  \
  && apk add --update openssh  \
  && apk add --update docker  \
+ && apk add --update py3-pip \
  && apk add --update jq  \
  && apk add --update npm  \
  && apk add --update openssl  \
  && apk add --update bash git perl \
  && apk add --update gettext tar gzip \
+ && pip install j2cli \
  && curl -L https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
  && curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash \
  && npm install --global @datadog/datadog-ci \
  && chmod +x /usr/local/bin/kubectl \
  && chmod +x /usr/local/bin/ytt \
  && rm /var/cache/apk/* \
- && helm plugin install https://github.com/databus23/helm-diff --version 3.1.2 \
- && helm plugin install https://github.com/salesforce/helm-starter.git
+ && helm plugin install https://github.com/chartmuseum/helm-push \
+ && helm plugin install https://github.com/salesforce/helm-starter.git \
+ && helm plugin install https://github.com/databus23/helm-diff --version 3.1.2
 
 # RUN \
 #   curl https://sdk.cloud.google.com > install.sh && \
