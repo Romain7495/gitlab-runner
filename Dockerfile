@@ -30,7 +30,11 @@ RUN apk add --update ca-certificates \
  && rm /var/cache/apk/* \
  && helm plugin install https://github.com/chartmuseum/helm-push \
  && helm plugin install https://github.com/salesforce/helm-starter.git \
- && helm plugin install https://github.com/databus23/helm-diff --version 3.1.2
+ && helm plugin install https://github.com/databus23/helm-diff --version 3.1.2 \
+ && echo "fs.inotify.max_user_watches=524288" | tee -a /etc/sysctl.conf \
+ && echo "fs.inotify.max_user_instances=524288" | tee -a /etc/sysctl.conf \
+ && echo "fs.inotify.max_queued_events=524288" | tee -a /etc/sysctl.conf \
+ && sysctl -p
 
 # RUN \
 #   curl https://sdk.cloud.google.com > install.sh && \
