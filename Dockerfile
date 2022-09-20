@@ -22,14 +22,13 @@ RUN apk add --no-cache \
                         tar \
                         docker \
                         gzip && \
-    wget ${YQ_URL} -O /usr/bin/yq && \
+    curl ${YQ_URL} -o /usr/bin/yq && \
     curl ${K8S_URL} -o /usr/local/bin/kubectl && \
     curl ${HELM_URL} | bash && \
     chmod +x /usr/local/bin/kubectl && \
     chmod +x /usr/bin/yq && \
-    rm /var/cache/apk/* && \
     helm plugin install https://github.com/chartmuseum/helm-push && \
     helm plugin install https://github.com/salesforce/helm-starter.git && \
-    helm plugin install https://github.com/databus23/helm-diff --version 3.1.2 && \
+    helm plugin install https://github.com/databus23/helm-diff --version 3.1.2
 
 CMD ["helm"]
