@@ -4,7 +4,6 @@ LABEL MAINTAINER=contact@romainlabat.fr
 
 ARG K8S_VERSION
 ARG HELM_VERSION
-ARG YQ_VERSION
 ARG HELM_URL="https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3"
 ARG K8S_URL="https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl"
 
@@ -21,6 +20,7 @@ RUN apk add --no-cache \
                         tar \
                         docker \
                         yq \
+                        vault \
                         gzip && \
     curl ${K8S_URL} -o /usr/local/bin/kubectl && \
     curl ${HELM_URL} | bash && \
