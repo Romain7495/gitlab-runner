@@ -21,11 +21,13 @@ RUN apk add --no-cache \
                         docker \
                         yq \
                         vault \
+                        libcap \
                         gzip && \
     curl ${K8S_URL} -o /usr/local/bin/kubectl && \
     curl ${HELM_URL} | bash && \
     chmod +x /usr/local/bin/kubectl && \
     chmod +x /usr/bin/yq && \
+    setcap cap_ipc_lock= /usr/sbin/vault && \
     helm plugin install https://github.com/chartmuseum/helm-push && \
     helm plugin install https://github.com/salesforce/helm-starter.git && \
     helm plugin install https://github.com/databus23/helm-diff --version 3.1.2
