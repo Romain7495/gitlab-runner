@@ -18,6 +18,7 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
                         tar \
                         yq \
                         libcap \
+                        flarectl \
                         helm@testing \
                         kubectl@testing \
                         vault  \
