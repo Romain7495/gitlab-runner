@@ -16,6 +16,7 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
                         perl \
                         gettext \
                         tar \
+                        npm \
                         yq \
                         libcap \
                         flarectl \
@@ -25,5 +26,6 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
                         gzip && \
     setcap cap_ipc_lock= /usr/sbin/vault && \
     helm plugin install https://github.com/chartmuseum/helm-push && \
-    helm plugin install https://github.com/salesforce/helm-starter.git 
+    helm plugin install https://github.com/salesforce/helm-starter.git && \
+    npm install -g nx
 CMD ["helm"]
