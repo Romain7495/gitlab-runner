@@ -19,6 +19,7 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
                         npm \
                         yq \
                         libcap \
+                        glab \
                         flarectl \
                         helm@testing \
                         kubectl@testing \
@@ -27,5 +28,5 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
     setcap cap_ipc_lock= /usr/sbin/vault && \
     helm plugin install https://github.com/chartmuseum/helm-push && \
     helm plugin install https://github.com/salesforce/helm-starter.git && \
-    npm install -g nx
+    npm install -g nx && npm install -g @datadog/datadog-ci
 CMD ["helm"]
