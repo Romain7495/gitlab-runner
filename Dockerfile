@@ -24,6 +24,7 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
                         helm@testing \
                         kubectl@testing \
                         vault  \
+                        glab \
                         gzip && \
     setcap cap_ipc_lock= /usr/sbin/vault && \
     helm plugin install https://github.com/chartmuseum/helm-push && \
