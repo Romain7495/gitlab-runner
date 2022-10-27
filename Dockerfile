@@ -31,4 +31,6 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
     helm plugin install https://github.com/chartmuseum/helm-push && \
     helm plugin install https://github.com/salesforce/helm-starter.git && \
     npm install -g nx && npm install -g @datadog/datadog-ci
+RUN git clone https://github.com/xero/figlet-fonts.git && mv figlet-fonts/*.flf /usr/share/figlet/fonts && rm -rf figlet-fonts
+
 CMD ["helm"]
