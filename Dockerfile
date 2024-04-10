@@ -1,10 +1,12 @@
-FROM alpine:edge
+FROM alpine:3.18
 LABEL MAINTAINER=contact@romainlabat.fr
 
 ARG DOCKER_ENABLED=false
+ENV PATH $PATH:/root/google-cloud-sdk/bin
 
 RUN if [[ "$DOCKER_ENABLED" == "true" ]] ; then apk add --no-cache docker ; fi
-RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+RUN if [[ "$GCLOUD_ENABLED" == "true" ]] ; then curl -sSL https://sdk.cloud.google.com | bash ; fi
+RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     apk add --no-cache \
                         ca-certificates \
                         curl \
@@ -22,10 +24,13 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
                         glab \
                         flarectl \
                         figlet \
-                        helm@testing \
-                        kubectl@testing \
+                        helm@community \
+                        kubectl@community \
                         vault  \
                         glab \
+                        tzdata \
+                        dos2unix \
+                        libc6-compat \
                         gzip && \
     setcap cap_ipc_lock= /usr/sbin/vault && \
     helm plugin install https://github.com/chartmuseum/helm-push && \

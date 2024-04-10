@@ -18,10 +18,17 @@ docker build -t ${DOCKER_REPO}:${VERSION} \
              -t ${DOCKER_REPO}:latest \
             --build-arg DOCKER_ENABLED=true .
 
-docker tag ${DOCKER_REPO}:${VERSION} ${DOCKER_REPO}:latest
+echo " Building image ${DOCKER_REPO}:${VERSION} with gcloud"
+echo
+docker build -t ${DOCKER_REPO}:${VERSION}-gcp \
+             -t ${DOCKER_REPO}:latest-gcp \
+            --build-arg DOCKER_ENABLED=true \
+            --build-arg GCLOUD_ENABLED=true .
 
 # Push image
 docker push ${DOCKER_REPO}:${VERSION}
 docker push ${DOCKER_REPO}:${VERSION}-slim
 docker push ${DOCKER_REPO}:latest
 docker push ${DOCKER_REPO}:latest-slim
+docker push ${DOCKER_REPO}:${VERSION}-gcp
+docker push ${DOCKER_REPO}:latest-gcp
