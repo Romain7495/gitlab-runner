@@ -1,0 +1,10 @@
+ARG DOCKER_BASE_IMG_REPO
+ARG DOCKER_BASE_IMG_TAG
+FROM $DOCKER_BASE_IMG_REPO:$DOCKER_BASE_IMG_TAG
+
+# Set maintainer label
+LABEL MAINTAINER=contact@romainlabat.fr
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN curl -sSL https://get.docker.com | bash && rm -rf /var/lib/apt/lists/*

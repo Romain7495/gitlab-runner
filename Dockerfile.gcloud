@@ -1,0 +1,13 @@
+ARG DOCKER_BASE_IMG_REPO
+ARG DOCKER_BASE_IMG_TAG
+FROM $DOCKER_BASE_IMG_REPO:$DOCKER_BASE_IMG_TAG
+
+# Set maintainer label
+LABEL MAINTAINER=contact@romainlabat.fr
+
+# Set Docker and GCloud arguments
+ARG DEBIAN_FRONTEND=noninteractive
+# Set PATH environment variable
+ENV PATH $PATH:/root/google-cloud-sdk/bin
+
+RUN curl -sSL https://sdk.cloud.google.com | bash && rm -rf /var/lib/apt/lists/*
